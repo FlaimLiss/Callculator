@@ -178,51 +178,6 @@ select, #product-grams {
   padding: 5px 10px;
   cursor: pointer;
 }
-.search-section {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-#product-search {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #a5d6a7;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-#show-all {
-  padding: 12px 15px;
-  background-color: #388e3c;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.search-results {
-  margin-bottom: 20px;
-}
-
-.product-card {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #a5d6a7;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  background-color: #e8f5e9;
-}
-
-.product-card button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
 
 /* Модальное окно */
 .modal {
@@ -265,63 +220,4 @@ select, #product-grams {
   padding: 8px;
   border: 1px solid #a5d6a7;
   border-radius: 4px;
-}
-.grams-input {
-  width: 60px;
-  padding: 5px;
-  margin-right: 5px;
-}
-.meal-presets {
-  margin: 20px 0;
-  padding: 15px;
-  background-color: #edf7ed;
-  border-radius: 8px;
-}
-
-#show-presets {
-  padding: 12px 15px;
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#show-presets:hover {
-  background-color: #f57c00;
-}
-
-/* Убедимся, что модальное окно правильно стилизовано */
-#presets-modal .modal-content {
-  max-width: 600px;
-}
-
-/* Стили для списка готовых блюд */
-.presets-list {
-  margin-top: 20px;
-}
-
-.preset {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-  border-left: 4px solid #4caf50;
-}
-
-.preset:hover {
-  background-color: #f1f8e9;
-}
-
-.add-preset {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
 }
