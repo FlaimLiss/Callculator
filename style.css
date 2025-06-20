@@ -5,6 +5,8 @@ body {
   background-color: #f5f5f5;
   color: #333;
   background-image: url('https://img2.wallspic.com/attachments/originals/0/8/9/4/14980-food-diet_food-salad-leaf_vegetable-vegetable-2880x1800.jpg');
+  background-size: cover; /* Растягивает изображение на весь экран */
+  background-position: center; /* Центрирует изображение */
 }
 
 .container {
