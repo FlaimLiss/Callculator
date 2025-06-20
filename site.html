@@ -14,45 +14,31 @@
     </header>
 
     <main>
-      <!-- Поиск продуктов -->
       <div class="search-section">
         <input type="text" id="product-search" placeholder="Найти продукт...">
         <button id="show-all">Показать все продукты</button>
         <a href="recipes.html" class="recipe-button">🍳 Рецепты блюд</a>
+        <div id="search-results" class="search-results"></div>
       </div>
 
-      <!-- Результаты поиска -->
-      <div id="search-results" class="search-results">
-        <!-- Сюда выводятся найденные продукты -->
-      </div>
-
-      <!-- Калькулятор блюда -->
       <div class="calculator">
         <h2>Ваше блюдо:</h2>
         <div class="meal-list">
-          <ul id="meal-items">
-            <!-- Сюда добавляются выбранные продукты -->
-          </ul>
+          <ul id="meal-items"></ul>
         </div>
-        
-  <div class="total-calories">
-    <h3>Итого: <span id="total">0</span> ккал</h3>
-  </div>
         
         <div class="total-calories">
           <h3>Итого: <span id="total">0</span> ккал</h3>
+          <button id="save-meal">💾 Сохранить блюдо</button>
         </div>
       </div>
     </main>
 
-    <!-- Модальное окно со всеми продуктами -->
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Все продукты (калорийность на 100 г)</h2>
-        <div class="modal-products" id="modal-products">
-          <!-- Сюда загружаются все продукты -->
-        </div>
+        <div class="modal-products" id="modal-products"></div>
       </div>
     </div>
 
