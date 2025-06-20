@@ -12,158 +12,69 @@ body {
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 header {
   text-align: center;
   margin-bottom: 20px;
-  color: #2e7d32; /* Тёмно-зелёный */
-}
-
-h1 {
-  margin: 0;
-  font-size: 2.2em;
-}
-
-.calculator {
-  background-color: #e8f5e9; /* Светло-зелёный фон */
-  padding: 20px;
+  padding: 20px 0;
+  background-color: #4CAF50;
+  color: white;
   border-radius: 8px;
-  margin-bottom: 20px;
 }
 
-.input-section {
+h1 { margin: 0; font-size: 2.2em; }
+
+.search-section {
+  position: relative;
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 #product-search {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #a5d6a7;
+  min-width: 200px;
+  padding: 12px;
+  border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
 }
 
-#add-product {
-  padding: 10px 15px;
-  background-color: #4caf50; /* Зелёный */
-  color: white;
+#show-all {
+  padding: 12px 20px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 16px;
-}
-
-#add-product:hover {
-  background-color: #388e3c; /* Тёмно-зелёный */
-}
-
-.product-list {
-  min-height: 200px;
-  border: 1px dashed #a5d6a7;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.total-calories {
-  text-align: right;
-  font-size: 1.2em;
-  color: #2e7d32;
-}
-
-footer {
-  text-align: center;
-  margin-top: 20px;
-  color: #666;
-  font-size: 0.9em;
-}
-.products-section {
-  margin-bottom: 30px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  border: 1px solid #a5d6a7;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #4caf50;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #e8f5e9;
-}
-
-select, #product-grams {
-  padding: 10px;
-  border: 1px solid #a5d6a7;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-#product-grams {
-  width: 80px;
-}
-
-.meal-list {
-  margin: 20px 0;
-  padding: 10px;
-  border: 1px dashed #a5d6a7;
-  border-radius: 4px;
-}
-
-#meal-items {
-  list-style-type: none;
-  padding: 0;
-}
-
-#meal-items li {
-  padding: 5px 0;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-#save-meal {
-  padding: 8px 15px;
-  background-color: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
-  font-size: 14px;
+  background-color: #388E3C;
+  color: white;
   transition: background-color 0.3s;
 }
 
-#save-meal:hover {
-  background-color: #0b7dda;
+#show-all:hover {
+  background-color: #2E7D32;
 }
 
 .search-results {
-  position: relative;
-  margin-bottom: 20px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   max-height: 400px;
   overflow-y: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  background-color: white;
+  background: white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   z-index: 100;
-  display: none; /* Скрыт по умолчанию */
+  display: none;
 }
 
 .search-results.active {
-  display: block; /* Показываем при активации */
+  display: block;
+  animation: fadeIn 0.3s ease;
 }
 
 .product-card {
@@ -172,20 +83,6 @@ select, #product-grams {
   align-items: center;
   padding: 12px 15px;
   border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
-}
-
-.product-card:last-child {
-  border-bottom: none;
-}
-
-.product-card:hover {
-  background-color: #f9f9f9;
-}
-
-.product-card span {
-  flex-grow: 1;
-  font-weight: 500;
 }
 
 .product-card div {
@@ -199,162 +96,65 @@ select, #product-grams {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  text-align: center;
 }
 
 .product-card button {
-  background-color: #4CAF50;
+  background: #4CAF50;
   color: white;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.product-card button:hover {
-  background-color: #3e8e41;
+.no-results {
+  padding: 15px;
+  text-align: center;
+  color: #666;
 }
 
-/* Стили для скроллбара */
-.search-results::-webkit-scrollbar {
-  width: 8px;
+.calculator {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.search-results::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.meal-list {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px dashed #a5d6a7;
   border-radius: 4px;
 }
 
-.search-results::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+#meal-items {
+  list-style: none;
+  padding: 0;
 }
 
-.search-results::-webkit-scrollbar-thumb:hover {
-  background: #555;
+#meal-items li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Анимация появления */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.search-results.active {
-  animation: fadeIn 0.3s ease-out;
-}
-
-#show-all, .recipe-button {
-  padding: 12px 20px;
+#meal-items li button {
+  background: #f44336;
+  color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  padding: 4px 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-#show-all {
-  background-color: #388E3C;
-  color: white;
-}
-
-#show-all:hover {
-  background-color: #2E7D32;
-}
-
-.recipe-button {
-  background-color: #2196F3;
-  color: white;
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-}
-
-.recipe-button:hover {
-  background-color: #0b7dda;
-}
-
-/* Стили для страницы рецептов */
-.recipes-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-.recipe-card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.recipe-card:hover {
-  transform: translateY(-5px);
-}
-
-.recipe-header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 15px;
-}
-
-.recipe-header h3 {
-  margin: 0;
-  font-size: 1.5em;
-}
-
-.recipe-content {
-  padding: 20px;
-}
-
-.recipe-calories {
+.total-calories {
+  text-align: right;
   font-size: 1.2em;
-  color: #FF9800;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.recipe-description {
-  color: #666;
-  margin-bottom: 15px;
-}
-
-.recipe-ingredients {
+  color: #2e7d32;
   margin-top: 15px;
 }
 
-.recipe-ingredients h4 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.recipe-ingredients ul {
-  padding-left: 20px;
-}
-
-.recipe-ingredients li {
-  margin-bottom: 8px;
-}
-
-.back-button {
-  display: inline-block;
-  margin: 20px 0;
-  padding: 10px 15px;
-  background-color: #f5f5f5;
-  color: #333;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #ddd;
-}
-
-/* Модальные окна и другие элементы */
 .modal {
   display: none;
   position: fixed;
@@ -375,94 +175,49 @@ select, #product-grams {
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.modal-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-product {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .close {
   float: right;
   font-size: 28px;
   cursor: pointer;
-  color: #aaa;
 }
 
-.close:hover {
-  color: #333;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Адаптивность */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
 @media (max-width: 768px) {
   .search-section {
     flex-direction: column;
   }
   
-  .recipes-container {
-    grid-template-columns: 1fr;
+  .search-results {
+    width: calc(100% - 20px);
   }
   
   .modal-content {
     width: 90%;
     margin: 10% auto;
   }
-}
-  .no-results {
-    padding: 15px;
-    text-align: center;
-    color: #666;
-  }
-.saved-meals-list {
-  display: grid;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.saved-meal-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.saved-meal-card h3 {
-  margin: 0 0 5px 0;
-  color: #2e7d32;
-}
-
-.meal-date {
-  color: #666;
-  font-size: 0.9em;
-  margin: 0 0 10px 0;
-}
-
-.meal-calories {
-  font-weight: bold;
-  color: #ff9800;
-  margin: 5px 0;
-}
-
-.meal-items {
-  padding-left: 20px;
-  margin: 10px 0;
-}
-
-.meal-items li {
-  margin-bottom: 5px;
-}
-
-.delete-meal {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.delete-meal:hover {
-  background-color: #d32f2f;
-}
-.no-meals, .error-message {
-  text-align: center;
-  padding: 20px;
-  color: #666;
 }
