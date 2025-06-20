@@ -279,32 +279,56 @@ select, #product-grams {
 }
 
 .presets-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .preset {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
+  padding: 12px 15px;
   background-color: white;
   border: 1px solid #a5d6a7;
-  border-radius: 4px;
-  width: calc(50% - 20px);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.preset:hover {
+  background-color: #f1f8e9;
 }
 
 .preset span {
   font-weight: 500;
+  flex-grow: 1;
 }
 
 .add-preset {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 3px;
-  padding: 2px 8px;
+  border-radius: 4px;
+  padding: 5px 12px;
   cursor: pointer;
+  font-size: 16px;
+  margin-left: 15px;
+}
+
+.add-preset:hover {
+  background-color: #388e3c;
+}
+
+#show-presets {
+  padding: 12px 15px;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#show-presets:hover {
+  background-color: #f57c00;
 }
