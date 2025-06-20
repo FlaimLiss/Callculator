@@ -141,23 +141,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
   // Функция сохранения блюда
-  function saveMeal() {
-    const mealName = prompt("Введите название блюда:");
-    
-    if (!mealName) return; // Если пользователь отменил ввод
-    
-    const savedMeals = JSON.parse(localStorage.getItem('savedMeals') || "[]");
+  function calculateTotal() {
+  const total = mealItems.reduce((sum, item) => sum + item.calories, 0);
+  totalCaloriesElement.textContent = total;
+  return total; // Важно: функция должна возвращать значение для сохранения
+}
+
+// Новая функция сохранения блюда
+function saveMeal() {
+  if (mealItems.length === 0) {
+    alert("Добавьте продукты в блюдо перед сохранением!");
+    return;
+  }
+
+  const mealName = prompt("Введите название блюда:");
+  if (!mealName) return;
+
+  try {
+    const savedMeals = JSON.parse(localStorage.getItem('savedMeals')) || [];
     
     savedMeals.push({
       name: mealName,
-      items: [...mealItems], // Копируем текущие продукты
-      total: calculateTotal(), // Сохраняем общую калорийность
-      date: new Date().toLocaleDateString() // Добавляем дату
+      items: [...mealItems],
+      total: calculateTotal(), // Используем результат calculateTotal()
+      date: new Date().toLocaleString()
     });
     
     localStorage.setItem('savedMeals', JSON.stringify(savedMeals));
-    alert(`Блюдо "${mealName}" сохранено!`);
+    alert(`Блюдо "${mealName}" успешно сохранено!`);
+  } catch (error) {
+    console.error("Ошибка при сохранении:", error);
+    alert("Произошла ошибка при сохранении блюда");
   }
+}
   
   // Вешаем обработчик на кнопку
-  document.getElementById('save-meal').addEventListener('click', saveMeal);
+  document.getElementById('save-meal')?.addEventListener('click', saveMeal);
+});
