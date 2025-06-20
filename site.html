@@ -18,26 +18,13 @@
       <div class="search-section">
         <input type="text" id="product-search" placeholder="Найти продукт...">
         <button id="show-all">Показать все продукты</button>
+        <button id="show-presets">Готовые блюда</button>
       </div>
 
       <!-- Результаты поиска -->
       <div id="search-results" class="search-results">
         <!-- Сюда выводятся найденные продукты -->
       </div>
-
-      <div class="meal-presets">
-  <h2>Готовые блюда</h2>
-  <div class="presets-list">
-    <div class="preset" data-products='[{"id":24,"grams":200},{"id":16,"grams":150},{"id":47,"grams":100}]'>
-      <span>Курица с рисом</span>
-      <button class="add-preset">+</button>
-    </div>
-    <div class="preset" data-products='[{"id":25,"grams":150},{"id":31,"grams":100},{"id":55,"grams":50}]'>
-      <span>Гречка с творогом и авокадо</span>
-      <button class="add-preset">+</button>
-    </div>
-    <!-- Добавьте другие блюда по аналогии -->
-  </div>
 
       <!-- Калькулятор блюда -->
       <div class="calculator">
@@ -61,6 +48,25 @@
         <h2>Все продукты (калорийность на 100 г)</h2>
         <div class="modal-products" id="modal-products">
           <!-- Сюда загружаются все продукты -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно с готовыми блюдами -->
+    <div id="presets-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Готовые блюда</h2>
+        <div class="presets-list">
+          <div class="preset" data-products='[{"id":24,"grams":200},{"id":16,"grams":150},{"id":47,"grams":100}]'>
+            <span>Курица с рисом</span>
+            <button class="add-preset">+</button>
+          </div>
+          <div class="preset" data-products='[{"id":25,"grams":150},{"id":31,"grams":100},{"id":55,"grams":50}]'>
+            <span>Гречка с творогом и авокадо</span>
+            <button class="add-preset">+</button>
+          </div>
+          <!-- Добавьте другие блюда по аналогии -->
         </div>
       </div>
     </div>
