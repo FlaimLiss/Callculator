@@ -1,14 +1,14 @@
 {
   "products": [
-    {
-      "id": 1,
-      "name": "Яблоко",
-      "calories": 52
-    },
-    {
-      "id": 2,
-      "name": "Банан",
-      "calories": 89
-    }
+    { "id": 1, "name": "Яблоко", "calories": 52 },
+    { "id": 2, "name": "Банан", "calories": 89 },
+    { "id": 3, "name": "Куриная грудка", "calories": 165 },
+    { "id": 4, "name": "Рис варёный", "calories": 130 },
+    { "id": 5, "name": "Гречка", "calories": 101 },
+    { "id": 6, "name": "Яйцо куриное", "calories": 155 },
+    { "id": 7, "name": "Овсянка", "calories": 68 },
+    { "id": 8, "name": "Творог", "calories": 159 },
+    { "id": 9, "name": "Хлеб ржаной", "calories": 165 },
+    { "id": 10, "name": "Картофель варёный", "calories": 86 }
   ]
 }
