@@ -144,6 +144,33 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMeal();
     calculateTotal();
   };
+  // Обработчик для добавления готовых блюд
+  document.querySelectorAll('.add-preset').forEach(button => {
+    button.addEventListener('click', function() {
+      const presetElement = this.closest('.preset');
+      const productsData = JSON.parse(presetElement.dataset.products);
+      
+      // Очищаем текущее блюдо
+      mealItems = [];
+      
+      // Добавляем все продукты из блюда
+      productsData.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        if (product) {
+          mealItems.push({
+            name: product.name,
+            grams: item.grams,
+            calories: Math.round((product.calories * item.grams) / 100)
+          });
+        }
+      });
+      
+      renderMeal();
+      calculateTotal();
+      alert('Блюдо добавлено!');
+    });
+  });
+
 
   // Подсчёт калорий
   function calculateTotal() {
