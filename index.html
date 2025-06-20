@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор калорий</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍏 Калькулятор калорий</h1>
+      <p>Считайте калории легко!</p>
+    </header>
+
+    <main>
+      <div class="calculator">
+        <div class="input-section">
+          <input type="text" id="product-search" placeholder="Найти продукт...">
+          <button id="add-product">Добавить</button>
+        </div>
+
+        <div class="product-list">
+          <!-- Сюда будут добавляться продукты -->
+          <p>Список продуктов пуст. Начните поиск!</p>
+        </div>
+
+        <div class="total-calories">
+          <h3>Итого: <span id="total">0</span> ккал</h3>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2024 Калькулятор калорий</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
