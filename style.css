@@ -266,3 +266,8 @@ select, #product-grams {
   border: 1px solid #a5d6a7;
   border-radius: 4px;
 }
+.grams-input {
+  width: 60px;
+  padding: 5px;
+  margin-right: 5px;
+}
