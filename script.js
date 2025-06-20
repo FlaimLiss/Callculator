@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const grams = parseInt(gramsInput.value);
-    if (isNaN(grams) {
+    if (isNaN(grams)) {
       alert('Введите число!');
       return;
     }
