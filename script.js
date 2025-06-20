@@ -140,3 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
     totalCaloriesElement.textContent = total;
   }
 });
+  // Функция сохранения блюда
+  function saveMeal() {
+    const mealName = prompt("Введите название блюда:");
+    
+    if (!mealName) return; // Если пользователь отменил ввод
+    
+    const savedMeals = JSON.parse(localStorage.getItem('savedMeals') || "[]");
+    
+    savedMeals.push({
+      name: mealName,
+      items: [...mealItems], // Копируем текущие продукты
+      total: calculateTotal(), // Сохраняем общую калорийность
+      date: new Date().toLocaleDateString() // Добавляем дату
+    });
+    
+    localStorage.setItem('savedMeals', JSON.stringify(savedMeals));
+    alert(`Блюдо "${mealName}" сохранено!`);
+  }
+  
+  // Вешаем обработчик на кнопку
+  document.getElementById('save-meal').addEventListener('click', saveMeal);
