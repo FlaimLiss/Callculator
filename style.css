@@ -387,3 +387,8 @@ select, #product-grams {
     margin: 10% auto;
   }
 }
+  .no-results {
+    padding: 15px;
+    text-align: center;
+    color: #666;
+  }
