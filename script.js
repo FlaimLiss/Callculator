@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModal = document.querySelector('.close');
   const showPresetsButton = document.getElementById('show-presets');
   const presetsModal = document.getElementById('presets-modal');
-  const closePresetsModal = presetsModal.querySelector('.close');
+  const closePresetsButton = presetsModal.querySelector('.close-presets');
   let products = [];
   let mealItems = [];
 
@@ -35,22 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Открытие модального окна
-  showAllButton.addEventListener('click', () => {
+ showPresetsButton.addEventListener('click', () => {
     if (products.length === 0) {
       alert('Продукты ещё не загружены. Подождите...');
       return;
     }
-    renderModalProducts();
-    modal.style.display = 'block';
+    presetsModal.style.display = 'block';
   });
 
-  // Закрытие модального окна
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
+  // Обработчик закрытия модального окна готовых блюд
+  closePresetsButton.addEventListener('click', () => {
+    presetsModal.style.display = 'none';
   });
 
+  // Закрытие при клике вне модального окна
   window.addEventListener('click', (e) => {
-    if (e.target === modal) modal.style.display = 'none';
+    if (e.target === presetsModal) {
+      presetsModal.style.display = 'none';
+    }
   });
 
   // Функция для добавления продукта в блюдо (исправленная)
