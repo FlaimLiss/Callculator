@@ -44,30 +44,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Отображение результатов поиска
   function renderSearchResults(query) {
-    searchResults.innerHTML = '';
-    const filtered = query
-      ? products.filter(p => 
-          p.name.toLowerCase().includes(query.toLowerCase()))
-      : [];
-
-    if (filtered.length === 0 && query) {
-      searchResults.innerHTML = '<p>Ничего не найдено</p>';
-      return;
-    }
-
-    filtered.forEach(product => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <span>${product.name} (${product.calories} ккал)</span>
-        <div>
-          <input type="number" id="grams-${product.id}" placeholder="Граммы" min="1" style="width: 60px; padding: 5px;">
-          <button onclick="addToMeal(${product.id})">+</button>
-        </div>
-      `;
-      searchResults.appendChild(card);
-    });
+  searchResults.innerHTML = '';
+  
+  if (query === '') {
+    searchResults.classList.remove('active');
+    return;
   }
+  
+  const filtered = products.filter(p => 
+    p.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (filtered.length === 0) {
+    searchResults.innerHTML = '<div class="no-results">Ничего не найдено</div>';
+    searchResults.classList.add('active');
+    return;
+  }
+
+  filtered.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <span>${product.name} (${product.calories} ккал)</span>
+      <div>
+        <input type="number" id="grams-${product.id}" placeholder="Граммы" min="1">
+        <button onclick="addToMeal(${product.id})">+</button>
+      </div>
+    `;
+    searchResults.appendChild(card);
+  });
+  
+  searchResults.classList.add('active');
+}
 
   // Отображение всех продуктов в модальном окне
   function renderModalProducts() {
