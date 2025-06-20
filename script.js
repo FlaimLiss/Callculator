@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const modalProducts = document.getElementById('modal-products');
   const closeModal = document.querySelector('.close');
+  const showPresetsButton = document.getElementById('show-presets');
+  const presetsModal = document.getElementById('presets-modal');
+  const closePresetsModal = presetsModal.querySelector('.close');
   let products = [];
   let mealItems = [];
 
@@ -144,10 +147,26 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMeal();
     calculateTotal();
   };
-  // Обработчик для добавления готовых блюд
-  document.querySelectorAll('.add-preset').forEach(button => {
-    button.addEventListener('click', function() {
-      const presetElement = this.closest('.preset');
+  showPresetsButton.addEventListener('click', () => {
+    if (products.length === 0) {
+      alert('Продукты ещё не загружены. Подождите...');
+      return;
+    }
+    presetsModal.style.display = 'block';
+  });
+
+  closePresetsModal.addEventListener('click', () => {
+    presetsModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === presetsModal) presetsModal.style.display = 'none';
+  });
+
+  // Обработчик для добавления готовых блюд (перенесен и немного модифицирован)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('add-preset')) {
+      const presetElement = e.target.closest('.preset');
       const productsData = JSON.parse(presetElement.dataset.products);
       
       // Очищаем текущее блюдо
@@ -162,13 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
             grams: item.grams,
             calories: Math.round((product.calories * item.grams) / 100)
           });
+        } else {
+          console.error(`Продукт с id ${item.id} не найден`);
         }
       });
       
       renderMeal();
       calculateTotal();
-      alert('Блюдо добавлено!');
-    });
+      presetsModal.style.display = 'none'; // Закрываем модальное окно после добавления
+    }
   });
 
 
