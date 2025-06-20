@@ -7,95 +7,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const modalProducts = document.getElementById('modal-products');
   const closeModal = document.querySelector('.close');
-  const showPresetsButton = document.getElementById('show-presets');
-  const presetsModal = document.getElementById('presets-modal');
-  const closePresetsButton = presetsModal.querySelector('.close-presets');
   let products = [];
   let mealItems = [];
 
   // Загрузка продуктов из JSON
   fetch('data.json')
-    .then(response => {
-      if (!response.ok) throw new Error('Ошибка загрузки данных');
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       products = data.products;
-      console.log('Продукты загружены:', products.length); // Для отладки
+      renderSearchResults('');
     })
-    .catch(error => {
-      console.error('Ошибка:', error);
-      alert('Не удалось загрузить продукты. Проверьте консоль.');
-    });
+    .catch(error => console.error('Ошибка загрузки данных:', error));
 
   // Поиск продуктов
   searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.trim().toLowerCase();
-    renderSearchResults(query);
+    renderSearchResults(e.target.value);
   });
 
-  // Открытие модального окна
- showPresetsButton.addEventListener('click', () => {
-    if (products.length === 0) {
-      alert('Продукты ещё не загружены. Подождите...');
-      return;
-    }
-    presetsModal.style.display = 'block';
+  // Открыть модальное окно со всеми продуктами
+  showAllButton.addEventListener('click', () => {
+    renderModalProducts();
+    modal.style.display = 'block';
   });
 
-  // Обработчик закрытия модального окна готовых блюд
-  closePresetsButton.addEventListener('click', () => {
-    presetsModal.style.display = 'none';
+  // Закрыть модальное окно
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
   });
 
-  // Закрытие при клике вне модального окна
+  // По клику вне модального окна — закрыть
   window.addEventListener('click', (e) => {
-    if (e.target === presetsModal) {
-      presetsModal.style.display = 'none';
+    if (e.target === modal) {
+      modal.style.display = 'none';
     }
   });
 
-  // Функция для добавления продукта в блюдо (исправленная)
-  window.addToMeal = function(productId) {
-    const gramsInput = document.getElementById(`grams-${productId}`);
-    if (!gramsInput) {
-      console.error('Поле для граммов не найдено');
-      return;
-    }
-    
-    const grams = parseInt(gramsInput.value);
-    if (isNaN(grams)) {
-      alert('Введите число!');
-      return;
-    }
-
-    const product = products.find(p => p.id === productId);
-    if (!product) {
-      console.error('Продукт не найден');
-      return;
-    }
-
-    mealItems.push({
-      name: product.name,
-      grams,
-      calories: Math.round((product.calories * grams) / 100)
-    });
-
-    renderMeal();
-    calculateTotal();
-    gramsInput.value = ''; // Сброс поля
-  };
-
-  // Отрисовка результатов поиска
+  // Отображение результатов поиска
   function renderSearchResults(query) {
     searchResults.innerHTML = '';
-    if (!query) return;
+    const filtered = query
+      ? products.filter(p => 
+          p.name.toLowerCase().includes(query.toLowerCase()))
+      : [];
 
-    const filtered = products.filter(p => 
-      p.name.toLowerCase().includes(query)
-    );
-
-    if (filtered.length === 0) {
+    if (filtered.length === 0 && query) {
       searchResults.innerHTML = '<p>Ничего не найдено</p>';
       return;
     }
@@ -106,13 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <span>${product.name} (${product.calories} ккал)</span>
         <div>
-          <input 
-            type="number" 
-            id="grams-${product.id}" 
-            placeholder="Граммы" 
-            min="1" 
-            class="grams-input"
-          >
+          <input type="number" id="grams-${product.id}" placeholder="Граммы" min="1" style="width: 60px; padding: 5px;">
           <button onclick="addToMeal(${product.id})">+</button>
         </div>
       `;
@@ -120,27 +69,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Отрисовка всех продуктов в модальном окне
+  // Отображение всех продуктов в модальном окне
   function renderModalProducts() {
-    modalProducts.innerHTML = products
-      .map(product => `
-        <div class="modal-product">
-          <strong>${product.name}</strong>: ${product.calories} ккал
-        </div>
-      `)
-      .join('');
+    modalProducts.innerHTML = '';
+    products.forEach(product => {
+      const item = document.createElement('div');
+      item.className = 'modal-product';
+      item.innerHTML = `
+        <strong>${product.name}</strong>: ${product.calories} ккал
+      `;
+      modalProducts.appendChild(item);
+    });
   }
 
-  // Отрисовка блюда
+  // Добавление продукта в блюдо
+  window.addToMeal = function(productId) {
+    const gramsInput = document.getElementById(`grams-${productId}`);
+    const grams = parseInt(gramsInput.value);
+
+    if (!grams || grams <= 0) {
+      alert('Укажите граммовку!');
+      return;
+    }
+
+    const product = products.find(p => p.id === productId);
+    const calories = Math.round((product.calories * grams) / 100);
+
+    mealItems.push({
+      name: product.name,
+      grams,
+      calories
+    });
+
+    renderMeal();
+    calculateTotal();
+    gramsInput.value = ''; // Очищаем поле ввода
+  };
+
+  // Отображение добавленных продуктов
   function renderMeal() {
-    mealItemsList.innerHTML = mealItems
-      .map((item, index) => `
-        <li>
-          ${item.name}: ${item.grams} г = ${item.calories} ккал
-          <button onclick="removeMealItem(${index})">×</button>
-        </li>
-      `)
-      .join('');
+    mealItemsList.innerHTML = '';
+    mealItems.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        ${item.name}: ${item.grams} г = ${item.calories} ккал
+        <button onclick="removeMealItem(${index})">×</button>
+      `;
+      mealItemsList.appendChild(li);
+    });
   }
 
   // Удаление продукта из блюда
@@ -149,53 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMeal();
     calculateTotal();
   };
-  showPresetsButton.addEventListener('click', () => {
-    if (products.length === 0) {
-      alert('Продукты ещё не загружены. Подождите...');
-      return;
-    }
-    presetsModal.style.display = 'block';
-  });
 
-  closePresetsModal.addEventListener('click', () => {
-    presetsModal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === presetsModal) presetsModal.style.display = 'none';
-  });
-
-  // Обработчик для добавления готовых блюд (перенесен и немного модифицирован)
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('add-preset')) {
-      const presetElement = e.target.closest('.preset');
-      const productsData = JSON.parse(presetElement.dataset.products);
-      
-      // Очищаем текущее блюдо
-      mealItems = [];
-      
-      // Добавляем все продукты из блюда
-      productsData.forEach(item => {
-        const product = products.find(p => p.id === item.id);
-        if (product) {
-          mealItems.push({
-            name: product.name,
-            grams: item.grams,
-            calories: Math.round((product.calories * item.grams) / 100)
-          });
-        } else {
-          console.error(`Продукт с id ${item.id} не найден`);
-        }
-      });
-      
-      renderMeal();
-      calculateTotal();
-      presetsModal.style.display = 'none'; // Закрываем модальное окно после добавления
-    }
-  });
-
-
-  // Подсчёт калорий
+  // Подсчёт общей калорийности
   function calculateTotal() {
     const total = mealItems.reduce((sum, item) => sum + item.calories, 0);
     totalCaloriesElement.textContent = total;
